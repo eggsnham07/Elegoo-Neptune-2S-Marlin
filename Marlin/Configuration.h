@@ -69,7 +69,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(just-trey, Elegoo Neptune 2)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(eggsnham07, Elegoo Neptune 2S)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 // @section custom
@@ -82,7 +82,10 @@
 
 #define IS_BOARD_1_3            true  // true if you have the 1.3 board, false for 1.2 board
 #define HAS_BLTOUCH             true  // true if you have a BlTouch or clone
-//#define IS_2D                   false // true if you have a Neptuen 2d (Dual extruder)
+#define IS_2D                   false // true if you have a Neptuen 2d (Dual extruder)
+#define IS_2S                   true  // true if you have a Neptune 2S
+#define FASTER_XY               true  // true if you want X and Y to move faster
+#define FASTER_Z                true  // true if you want Z to move faster
 
 // Define missing pins
 #define MT_DET_PIN_STATE        LOW
@@ -126,6 +129,20 @@
   #else
     #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
   #endif
+#endif
+
+#if FASTER_XY
+  #define CUSTOM_XY_SPEED 170*60
+#else
+  #define CUSTOM_XY_SPEED 50*60
+#endif
+
+#if FASTER_Z
+  #define CUSTOM_Z_PROBING_SPEED 10*60
+  #define CUSTOM_Z_SPEED 20*60
+#else
+  #define CUSTOM_Z_PROBING_SPEED 4*60
+  #define CUSTOM_Z_SPEED 10*60
 #endif
 
 /**
@@ -173,6 +190,8 @@
 
 // Name displayed in the LCD "Ready" message and Info menu
 #if IS_2D
+  #define CUSTOM_MACHINE_NAME "Elegoo Neptune 2D"
+#elif IS_2S
   #define CUSTOM_MACHINE_NAME "Elegoo Neptune 2S"
 #else
   #define CUSTOM_MACHINE_NAME "Elegoo Neptune 2"
@@ -1007,7 +1026,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 1000 }
+#define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 1000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1255,17 +1274,17 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 47.55, 3, 1.6 }
+#define NOZZLE_TO_PROBE_OFFSET { 47.55, 3, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #define PROBING_MARGIN 30
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_FEEDRATE (170*60)
+#define XY_PROBE_FEEDRATE (CUSTOM_XY_SPEED)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (600)
+#define Z_PROBE_FEEDRATE_FAST (CUSTOM_Z_PROBING_SPEED)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
@@ -1839,7 +1858,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_MM_M { (170*60), (170*60), (10*60) }
+#define HOMING_FEEDRATE_MM_M { CUSTOM_XY_SPEED, CUSTOM_XY_SPEED, CUSTOM_Z_SPEED }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
