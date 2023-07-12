@@ -1,3 +1,6 @@
+# Please note: this fork is meant for a neptune 2s with a bl touch! 
+You might be able to modify this to work without a bl touch, but at that point just go use just-trey's firmware.
+
 # Marlin 3D Printer Firmware
 
 ![GitHub](https://img.shields.io/github/license/marlinfirmware/marlin.svg)
