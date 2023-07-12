@@ -1,6 +1,9 @@
 # Please note: this fork is meant for a neptune 2s with a bl touch! 
 You might be able to modify this to work without a bl touch, but at that point just go use just-trey's firmware.
 
+### Precompiled firmware can be found in `config/Elegoo/Neptune-2`
+<br/><br/>
+
 # Marlin 3D Printer Firmware
 
 ![GitHub](https://img.shields.io/github/license/marlinfirmware/marlin.svg)
