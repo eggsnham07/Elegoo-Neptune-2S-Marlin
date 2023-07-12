@@ -23,5 +23,8 @@ jobs:
       - name: Build PlatformIO Project
         run: pio run --silent -e mks_robin_nano_v1_3_f4
         
+      - name: Create New Folders
+        run: mkdir -p config/Elegoo/Neptune-2/V1.3/BLTOUCH
+        
       - name: Move binary
         run: mv .pio/build/mks_robin_nano_v1_3_f4/firmware.bin config/Elegoo/Neptune-2/V1.3/BLTOUCH/elegoo.bin
